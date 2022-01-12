@@ -1,0 +1,1 @@
+export const FIREBASE_API_ENDPOINT = 'https://mobileappproject-a26eb-default-rtdb.firebaseio.com/'
