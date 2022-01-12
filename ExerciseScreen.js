@@ -19,6 +19,7 @@ import Db from "./Db";
 import axios from "axios";
 import Icon from "react-native-vector-icons/Ionicons";
 import Exercise from "./Exercise";
+import { useIsFocused } from "@react-navigation/native";
 
 export default function ExerScreen(Props) {
   const FIREBASE_API_ENDPOINT =
@@ -30,7 +31,7 @@ export default function ExerScreen(Props) {
   const [userExercises, setUserExercises] = React.useState([]);
   const [modalVisible, setModalVisible] = React.useState(false);
   let component = <View style={{ backgroundColor: "purples" }}></View>;
-
+  const isFocused = useIsFocused();
   const UpdateData = async (name) => {
     const asyncData = await AsyncStorage.getItem("userData");
     const parsedData = JSON.parse(asyncData);
@@ -126,7 +127,7 @@ export default function ExerScreen(Props) {
   }
   React.useEffect(() => {
     getData();
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={{ height: "100%", width: "100%", backgroundColor: "purple" }}>

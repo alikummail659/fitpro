@@ -6,14 +6,48 @@ import Workoutstack from "./WorkoutStack";
 import CustomWorkoutStack from "./CreateWorkoutStack";
 import DietPlanStack from "./DietPlanStack";
 import HistoryScreen from "./HistoryScreen";
+import HistoryDetailScreen from "./HistoryDetailScreen";
 import InfoStack from "./InfoStack";
 import * as React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SignUP from "./SignUp";
 import Welcome from "./WelcomeScreen";
 import LoginScreen from "./LoginScreen";
+import { Pressable, Text } from "react-native";
+
 const Drawer = createDrawerNavigator();
 const RootStack = createNativeStackNavigator();
+const HistoryStack = createNativeStackNavigator();
+
+const HistoryNavigator = () => {
+  return (
+    <HistoryStack.Navigator>
+      <HistoryStack.Screen
+        name={"HistoryScreen"}
+        component={HistoryScreen}
+        options={(navData) => {
+          return {
+            headerLeft: () => {
+              return (
+                <Pressable
+                  onPress={() => {
+                    navData.navigation.toggleDrawer();
+                  }}
+                >
+                  <Text>Open Drawer</Text>
+                </Pressable>
+              );
+            },
+          };
+        }}
+      />
+      <HistoryStack.Screen
+        name={"HistoryDetailScreen"}
+        component={HistoryDetailScreen}
+      />
+    </HistoryStack.Navigator>
+  );
+};
 
 function MainDrawer() {
   const [header, setheader] = React.useState(true);
@@ -39,7 +73,7 @@ function MainDrawer() {
       <Drawer.Screen name="Workouts" component={Workoutstack} />
       <Drawer.Screen name="Create Workout" component={CustomWorkoutStack} />
       <Drawer.Screen name="Diet Plan" component={DietPlanStack} />
-      <Drawer.Screen name="History" component={HistoryScreen} />
+      <Drawer.Screen name="History" component={HistoryNavigator} />
       <Drawer.Screen name="Info and Settings" component={InfoStack} />
     </Drawer.Navigator>
   );
